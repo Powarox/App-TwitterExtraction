@@ -31,9 +31,35 @@ $bidenCountOccurence = $parsingJson->countOccurenceWord($bidenImportantWords);
 
 
 
+// Trié les array par ordre décroissant
+$trumpSortedArray = $parsingJson->arraySorted($trumpCountOccurence);
+$bidenSortedArray = $parsingJson->arraySorted($bidenCountOccurence);
+
+
+
 // Création file result
-$parsingJson->createResultFile("Trump", $trumpCountOccurence);
-$parsingJson->createResultFile("Biden", $bidenCountOccurence);
+$parsingJson->createResultFile("Trump", $trumpSortedArray);
+$parsingJson->createResultFile("Biden", $bidenSortedArray);
+
+
+
+
+// Test For App
+$parsingJson = new ParsingJson("Python/FileTest2.json");
+$test = $parsingJson->getJsonToArray();
+
+var_dump($test);
+
+
+$jsonString = file_get_contents("Python/FileTest2.json");
+$jsonArray = json_decode($jsonString, true);
+
+var_dump($jsonArray);
+
+$jsonString = file_get_contents("us_election20_tweet_pr.json");
+$jsonArray = json_decode($jsonString, true);
+
+var_dump($jsonArray);
 
 
 
@@ -48,8 +74,8 @@ $bidenJsonString = file_get_contents("Result/Biden.json");
 $bidenJsonArray = json_decode($bidenJsonString, true);
 
 
-var_dump($trumpJsonArray);
-var_dump($bidenJsonArray);
+//var_dump($trumpJsonArray);
+//var_dump($bidenJsonArray);
 
 
 
@@ -87,11 +113,11 @@ if (is_writable($f)) {
       echo 'Impossible d\'écrire dans le fichier '.$f.'';
       exit;
     }
-   
+
     echo 'Ecriture terminé';
-   
+
     fclose($handle);
-                   
+
 }
 else {
       echo 'Impossible d\'écrire dans le fichier '.$f.'';
@@ -101,20 +127,3 @@ else {
 
 if (feof($f))   // Find the end
     echo 'Fin du fichier';*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

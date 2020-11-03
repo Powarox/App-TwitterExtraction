@@ -5,35 +5,35 @@ class ParsingJson{
     protected $jsonArray;
     protected $bidenTweetArray;
     protected $trumpTweetArray;
-    
+
     public function __construct($file){
         $this->jsonFile = $file;
         $this->jsonArray = array();
         $this->bidenTweetArray = array();
         $this->trumpTweetArray = array();
     }
-    
-    
-// ------------------ Traitement File Entrée ------------------    
-    
+
+
+// ------------------ Traitement File Entrée ------------------
+
     // Récupère le json et le transforme en tableau
     public function getJsonToArray(){
         $jsonString = file_get_contents($this->jsonFile);
         $this->jsonArray = json_decode($jsonString, true);
-        foreach($this->jsonArray as $key => $value){
-            $this->jsonArray = $value;
-        }
+        // foreach($this->jsonArray as $key => $value){
+        //     $this->jsonArray = $value;
+        // }
     }
-    
-    
-// ------------------ Séparation Trump / Biden ------------------    
-    
+
+
+// ------------------ Séparation Trump / Biden ------------------
+
     // Find si tweet talk about T or B
     public function findTrumpOrBiden(){
         $patternBiden = "/@?(joe)?(\s)?biden | @?biden(\s)?(joe)?/i";
         $patternTrump = "/@?(donald)?(\s)?trump | @?trump(\s)?(donald)?/i";
-        
-        foreach($this->jsonArray as $key => $value){                
+
+        foreach($this->jsonArray as $key => $value){
             if(preg_match($patternBiden, $value['text'])){
                 $this->bidenTweetArray[$key] = $value;
             }
@@ -42,65 +42,68 @@ class ParsingJson{
             }
         }
     }
-    
+
     // Return array with Trump message
     public function getTrumpArray(){
         return $this->trumpTweetArray;
     }
-    
+
     // Return array with Biden message
     public function getBidenArray(){
         return $this->bidenTweetArray;
     }
-    
-    
-// ------------------ Traitement File Sortie ------------------    
-    
-    
+
+
+// ------------------ Traitement File Sortie ------------------
+
+
     // Fichier json contenant les résultat
     public function createResultFile($name, $data){
         $jsonFile = fopen('Result/' . $name . '.json', 'w');
         $dataJson = json_encode($data);
-        
-        fputs($jsonFile, $dataJson);        
+
+        fputs($jsonFile, $dataJson);
         fclose($jsonFile);
     }
-    
+
     // Transform file json pour la rendre correct
     public function encodeJsonFile(){
         //{"jsonArray":[,,,,,]}
     }
-    
+
     // Récupération de chaque json independament
     public function jsonIndepElem(){
-        
+
     }
-    
-    
-// ------------------ Extraction Mots Important ------------------    
-    
+
+
+// ------------------ Extraction Mots Important ------------------
+
     // Preparation pattern
     public function regexpBanWord($result = array(), $i = 0){
         $array = $this->arrayBanWord();
+        $j = 0;
         foreach($array as $value){
             $result[$i] = "/\s" . $value . "\s/i";
             $i++;
+            $j = $i;
         }
+        $result[$j]= "/rt\s/i";
         return $result;
     }
-    
+
     // Extract important word
     public function extractionImportantWord($banWord, $array){
         $arrayWithoutBanWord = array();
         $pattern = "/(@|&|'|\"|\(|\)|<|>|#|\.|\,|\/|\?|\!|\;|\:|\\\)/";
-        
+
         foreach($array as $key => $value){
             $transition = preg_replace($pattern, " ", $value['text']);
             $arrayWithoutBanWord[$key] = preg_replace($banWord, " ", $transition);
         }
         return $arrayWithoutBanWord;
     }
-    
+
     // Array Ban Word
     public function arrayBanWord(){
         $banWord = array(
@@ -135,27 +138,28 @@ class ParsingJson{
             "also", "for", "small", "large", "medium", "large", "top", "bottom", "middle", "right",
             "left", "center", "said", "be", "their", "more", "less", "less",
             "es", "is", "are", "his", "will", "am", "have", "come",
+            "http", "https", "", " "
         );
         return $banWord;
     }
-    
-    
-// ------------------ Count Occurence Word ------------------ 
-    
+
+
+// ------------------ Count Occurence Word ------------------
+
     public function traitementWord($array){
         $lowerArray = strtolower($array);   // $upperArray = strtoupper($array);
-        
+
         $arrayWord = explode(" ", $lowerArray);
-        
+
         return $arrayWord;
     }
-    
+
     public function countOccurenceWord($array){
         $arrayCountOccurence = array();
-        
+
         foreach($array as $key => $value){
             $arrayWord = $this->traitementWord($value);
-            
+
             foreach($arrayWord as $word){
                 if(key_exists($word, $arrayCountOccurence)){
                     $arrayCountOccurence[$word]++;
@@ -165,23 +169,30 @@ class ParsingJson{
                 }
             }
         }
-        
+
         return $arrayCountOccurence;
     }
-        
+
     public function getCountArray(){
         return $this->countArray();
-    }    
-    
-    
-// ------------------ Autre ------------------    
-    
-    // Suppression des prépositions et des mots pas important 
+    }
+
+
+// ------------------ Count Occurence Word ------------------
+
+    public function arraySorted($array){
+        arsort($array);
+        return $array;
+    }
+
+// ------------------ Autre ------------------
+
+    // Suppression des prépositions et des mots pas important
     public function traitementRegExp(){
-        // TF-IDF ? 
+        // TF-IDF ?
         foreach($array as $key => $value){
             preg_match();
         }
     }
-    
+
 }
