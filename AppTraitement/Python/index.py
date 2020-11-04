@@ -1,12 +1,20 @@
-
 from ParsingJson import ParsingJson
+from TraitementJsonFile import TraitementJsonFile
+
+
+# Génération des JsonFile
+traitementJsonFile = TraitementJsonFile()
+
+traitementJsonFile.openFile("AppTraitement/JsonBigFile/us_election20_tweet_pr.json", 1000)
+traitementJsonFile.concatenateJson()
+traitementJsonFile.writeFile()
 
 
 
 # Initialisation Class ParsingJson
-parsingJson = ParsingJson("Python/FileTest2.json")
+parsingJson = ParsingJson("AppTraitement/JsonFiles/JsonFile1.json")
 parsingJson.getJsonToArray()
-#print(parsingJson.jsonArray)
+
 
 
 # Séparation Trump / Biden Tweet
