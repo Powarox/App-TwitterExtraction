@@ -1,0 +1,139 @@
+/* ############ Commun ############ */
+body {
+    margin: auto;
+    display: grid;
+	font-family: sans-serif;
+    background : #4381C1;
+    max-width: 1250px
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+   
+/* ############ Header ############ */
+
+h1 {
+    color: white;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 40px;
+    background: #900C3E;
+    border: solid 1px #900C3E;
+    border-radius: 5px;
+    width: 600px; 
+}
+
+h2 {
+    color: #571845;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+
+/* ############ Section Display ############ */
+
+.display {
+    
+}
+
+.display ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+    padding: 0;
+    
+}
+
+.display ul li {
+    
+}
+
+.display ul li button {
+    font-weight: bold;
+    font-size: 30px;
+    color: white;
+    background: #4381C1;
+    padding: 10px 50px;
+    border: 4px solid white;
+    border-radius: 20px
+    
+}
+
+.display ul li button:focus {
+    background: crimson;
+    outline-style: none;
+    box-shadow: none;
+    border-color: transparent;
+}
+
+
+
+
+/* ############ Section Trump / Biden ############ */
+
+.trump, .biden {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    text-align: center;
+    margin: 40px 20px;
+    border: 2px solid white;
+    border-radius: 10px;
+    background: crimson;
+}
+
+
+/* ############ Section Trump ############ */
+
+.trump article, .bide article {
+    padding: 5px;
+}
+
+
+/* ############ Section Trump ############ */
+
+.trump {
+    display: none;
+}
+
+.trump article {
+    
+}
+
+
+/* ############ Section Biden ############ */
+
+.biden {
+    display: none;
+}
+
+
+
+
+/* ############ Section Biden ############ */
+
+footer {
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
