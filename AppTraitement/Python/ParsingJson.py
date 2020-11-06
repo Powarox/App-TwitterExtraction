@@ -69,67 +69,16 @@ class ParsingJson:
 
 
 
-# ------------------ Extraction Mots Important ------------------
-
-    # Preparation pattern
-    def regexpBanWord(self, result = {}, i = 0, j = 0):
-        array = self.arrayBanWord()
-        for value in array:
-            result[i] = r"\s(" + value + ")\s"
-            i += 1
-            j = i
-        result[j] = r"(rt)\s"
-        return result
+# ------------------ Suppression Symbols ------------------
 
     # Extract important word
-    def extractionImportantWord(self, banWord, array):
-        arrayWithoutBanWord = {}
-        pattern = r"@|&|'|\"|\||\(|\)|<|>|#|\.|\,|\/|\?|\!|\;|\:|\\"
+    def extractionSymbols(self, array):
+        arrayWithoutSymbols = {}
+        pattern = r"@|&|'|\"|\||\(|\)|<|>|#|\.|\,|\/|\?|\!|\;|\:|\\|\n||-|_|[1234567890]*|(\s[abcdefghijklmnopqrstuvwxyz]\s)"
         for key, value in array.items():
-            arrayTransition = re.sub(pattern, "", value['text'])
+            arrayWithoutSymbols[key] = re.sub(pattern, "", value['text'])
+        return arrayWithoutSymbols
 
-            arrayWithoutBanWord[key] = arrayTransition
-
-            # arrayWithoutBanWord[key] = re.sub(banWord, "", arrayTransition, re.MULTILINE | re.IGNORECASE)
-        return arrayWithoutBanWord
-
-    # Array Ban Word
-    def arrayBanWord(self):
-        banWord = [
-            "but", "or", "and", "therefore", "or", "neither", "because",
-            "I", "he", "him", "they", "she", "they", "we", "you",
-            "your", "your", "my", "mine", "mine", "yours", "yours",
-            "all", "yes", "no",
-            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "l", "m", "n "," o "," p "," q ",
-            "r", "s", "t", "u", "v", "w", "x", "y", "z",
-            "the", "the", "the", "our",
-            "then", "to", "none", "also", "other", "before", "with", "have", "good", "because", "this",
-            "that", "these", "those", "each", "this", "like", "how", "in", "of", "of",
-            "out", "from", "two", "should", "must", "therefore", "back", "right", "start", "she",
-            "they", "in", "still", "test", "is", "and", "had", "done", "times", "do",
-            "force", "up", "off", "here", "he", "they", "I just", "the", "the", "the", "their", "there",
-            "my", "now", "but", "mine", "minus", "word", "same", "neither", "named",
-            "our", "we", "new", "or", "where", "by", "because", "word", "not", "people",
-            "may", "little", "part", "most", "for", "why", "when", "what", "which", "which",
-            "which", "which", "which", "his", "without", "his", "only", "if", "his", "his",
-            "are", "under", "be subject", "on", "your", "while", "so", "such", "your", "your",
-            "all", "all", "too much", "very", "you", "value", "way", "see", "go",
-            "seen", "that", "were", "state", "were", "been", "be",
-            "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
-            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-            "with", "at", "by", "in", "of", "in", "of", "a", "your", "best", "between",
-            "entered", "from", "then", "not", "not", "from", "same",
-            "or", "name", "only", "accepted", "having",
-            "your", "your", "my", "mine", "mine", "yours",
-            "that", "what", "who", "how", "little", "can", "worse", "then", "not",
-            "each", "each", "each",
-            "his", "his", "au", "aux", "se", "sur", "those", "this", "that",
-            "also", "for", "small", "large", "medium", "large", "top", "bottom", "middle", "right",
-            "left", "center", "said", "be", "their", "more", "less", "less",
-            "es", "is", "are", "his", "will", "am", "have", "come",
-            "http", "https", "", " "
-        ]
-        return banWord
 
 
 # ------------------ Count Occurence Word ------------------
@@ -170,10 +119,14 @@ class ParsingJson:
         arrayFirstElem = {}
         stop = 0
         for key, value in array.items():
-            arrayFirstElem[key] = value
-            stop +=1
-            if stop == stopValue:
-                break
+            if not key:
+                stop -= 1
+            else:
+                arrayFirstElem[key] = value
+                stop +=1
+                if stop == stopValue:
+                    break
+
         return arrayFirstElem
 
 
