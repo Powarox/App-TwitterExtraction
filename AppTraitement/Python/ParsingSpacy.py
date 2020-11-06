@@ -19,7 +19,6 @@ class ParsingSpacy:
         return arrayStopWord
 
 
-
 # Fréquence des mots ----------------------
 
 # complete_doc = nlp(complete_text)

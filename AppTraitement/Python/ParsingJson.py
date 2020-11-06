@@ -55,7 +55,7 @@ class ParsingJson:
 
     # Fichier json contenant les résultat
     def createResultFile(self, name, data):
-        with open('Result/' + name + '.json', "w") as filout:
+        with open('AppTraitement/Result/' + name + '.json', "w") as filout:
             dataJson = json.dumps(data)
             filout.write(dataJson)
 
@@ -103,7 +103,7 @@ class ParsingJson:
 
 
 
-# ------------------ Count Occurence Word ------------------
+# ------------------ Array Sorted ------------------
 
     def arraySorted(self, array):
         arraySorted = {}
@@ -113,7 +113,7 @@ class ParsingJson:
 
 
 
-# ------------------ Count Occurence Word ------------------
+# ------------------ First Elems Array ------------------
 
     def getFirstElemsArray(self, array, stopValue):
         arrayFirstElem = {}

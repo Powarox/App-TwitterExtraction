@@ -1,22 +1,21 @@
 from Python.ParsingJson import ParsingJson
-from Python.ParsingSpacy import ParsingSpacy
+# from Python.ParsingSpacy import ParsingSpacy
 from Python.TraitementJsonFile import TraitementJsonFile
 
 
 # Génération des JsonFile
-# traitementJsonFile = TraitementJsonFile()
-#
-# traitementJsonFile.openFile("AppTraitement/JsonBigFile/us_election20_tweet_pr.json", 1000)
-# traitementJsonFile.concatenateJson()
-# traitementJsonFile.writeFile()
+traitementJsonFile = TraitementJsonFile()
+
+traitementJsonFile.openFile("AppTraitement/JsonBigFile/us_election20_tweet_pr.json", 500)
+traitementJsonFile.concatenateJson()
+traitementJsonFile.writeFile()
 
 
 
-# Initialisation Class ParsingJson
-parsingJson = ParsingJson("JsonFiles/JsonFile1.json")
+# Instanciation Class ParsingJson
+parsingJson = ParsingJson("AppTraitement/JsonFiles/JsonFile1.json")
 parsingJson.getJsonToArray()
 
-parsingSpacy = ParsingSpacy()
 
 
 # Séparation Trump / Biden Tweet
@@ -33,15 +32,22 @@ bidenWithoutSymbols = parsingJson.extractionSymbols(bidenArray)
 
 
 
-# Extraction StopWord
-trumpWithoutStopWords = parsingSpacy.extractionStopWords(trumpWithoutSymbols)
-bidenWithoutStopWords = parsingSpacy.extractionStopWords(bidenWithoutSymbols)
+# # Instanciation Class ParsingSpacy
+# parsingSpacy = ParsingSpacy()
+
+# # Extraction StopWord
+# trumpWithoutStopWords = parsingSpacy.extractionStopWords(trumpWithoutSymbols)
+# bidenWithoutStopWords = parsingSpacy.extractionStopWords(bidenWithoutSymbols)
+
+# # Count occurence mots Spacy
+# trumpCountOccurence = parsingJson.countOccurenceWord(trumpWithoutStopWords)
+# bidenCountOccurence = parsingJson.countOccurenceWord(bidenWithoutStopWords)
 
 
 
 # Count occurence mots
-trumpCountOccurence = parsingJson.countOccurenceWord(trumpWithoutStopWords)
-bidenCountOccurence = parsingJson.countOccurenceWord(bidenWithoutStopWords)
+trumpCountOccurence = parsingJson.countOccurenceWord(trumpWithoutSymbols)
+bidenCountOccurence = parsingJson.countOccurenceWord(bidenWithoutSymbols)
 
 
 
@@ -68,12 +74,3 @@ parsingJson.createResultFile("Biden", bidenBestElems)
 
 
 # Affichage
-
-
-
-
-
-
-
-
-#
