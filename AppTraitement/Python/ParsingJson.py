@@ -7,7 +7,7 @@ class ParsingJson:
     bidenTweetArray = {}
     trumpTweetArray = {}
 
-    # Constructor
+# Constructor
     def __init__(self, f):
         self.jsonFile = f
         self.jsonArray = {}
@@ -55,7 +55,7 @@ class ParsingJson:
 
     # Fichier json contenant les résultat
     def createResultFile(self, name, data):
-        with open('AppTraitement/Result/' + name + '.json', "w") as filout:
+        with open('Result/' + name + '.json', "w") as filout:
             dataJson = json.dumps(data)
             filout.write(dataJson)
 
@@ -154,9 +154,8 @@ class ParsingJson:
 
 
 
-# ------------------ Sorted Array ------------------
+# ------------------ Count Occurence Word ------------------
 
-    # Trie ordre decroissant
     def arraySorted(self, array):
         arraySorted = {}
         for key, value in sorted(array.items(), key = lambda x: x[1], reverse = True):
@@ -165,9 +164,8 @@ class ParsingJson:
 
 
 
-# ------------------ First Elem ------------------
+# ------------------ Count Occurence Word ------------------
 
-    # Extrait les premier elements
     def getFirstElemsArray(self, array, stopValue):
         arrayFirstElem = {}
         stop = 0
@@ -185,3 +183,11 @@ class ParsingJson:
     # Suppression des prépositions et des mots pas important
     def traitementRegExp(self):
         x = 0
+
+
+
+
+
+
+
+#
