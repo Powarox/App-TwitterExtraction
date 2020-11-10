@@ -1,14 +1,15 @@
 <?php
+require_once('View/View.php');
+require_once("Control/Controller.php");
 
-require_once("Traitement.php");
-
-$traitement = new Traitement();
-
-
+// Instanciation class
+$view = new View();
+$controller = new Controller($view);
 
 
 // Action
+$controller->execute('Trump', 'Biden');
 
 
-
-// Affichage Template 
+// Affichage Template
+$view->render('Template.php');
