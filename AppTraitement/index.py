@@ -6,7 +6,7 @@ from Python.TraitementJsonFile import TraitementJsonFile
 # Génération des JsonFile
 traitementJsonFile = TraitementJsonFile()
 
-traitementJsonFile.openFile("AppTraitement/JsonBigFile/us_election20_tweet_pr.json", 500)
+traitementJsonFile.openFile("AppTraitement/JsonBigFile/us_election20_tweet_pr.json", 1000)
 traitementJsonFile.concatenateJson()
 traitementJsonFile.writeFile()
 

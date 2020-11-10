@@ -1,4 +1,5 @@
 import json
+import re
 
 class TraitementJsonFile:
     jsonArray = []
@@ -15,11 +16,23 @@ class TraitementJsonFile:
             ligne = filin.readline()
             stop = 0
             while ligne != "":
-                self.jsonArray.append(ligne)
+                if(self.supprUselessLigne(ligne)):
+                    self.jsonArray.append(ligne)
                 ligne = filin.readline()
                 stop += 1
                 if(stop == elem):
                     break
+
+# Check if trump or biden in tweet
+    def supprUselessLigne(self, val):
+        patternBiden = r"@?(joe)?(\s)?biden | @?biden(\s)?(joe)?"
+        patternTrump = r"@?(donald)?(\s)?trump | @?trump(\s)?(donald)?"
+        if re.search(patternTrump, val, re.IGNORECASE | re.MULTILINE):
+            return True
+        if re.search(patternBiden, val, re.IGNORECASE | re.MULTILINE):
+            return True
+        return False
+
 
 # Json Concatenante
     def concatenateJson(self):
