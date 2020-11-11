@@ -18,13 +18,10 @@ class ParsingJson:
 
 # ------------------ Traitement File Entrée ------------------
     # Récupère le json et le transforme en tableau
-    def getJsonToArray(self):
+    def getJsonToArray(self, i = 0):
         with open(self.jsonFile) as f:
-            jsonString = json.load(f)
-        for keyArray, valueArray in jsonString.items():
-            i = 0
-            for value in valueArray:
-                self.jsonArray[i] = value
+            for value in json.load(f):
+                self.jsonArray[i] = json.loads(value)
                 i += 1
 
 
@@ -51,24 +48,6 @@ class ParsingJson:
 
 
 
-# ------------------ Traitement File Sortie ------------------
-
-    # Fichier json contenant les résultat
-    def createResultFile(self, name, data):
-        with open('AppTraitement/Result/' + name + '.json', "w") as filout:
-            dataJson = json.dumps(data)
-            filout.write(dataJson)
-
-    # Transform file json pour la rendre correct
-    def encodeJsonFile(self):
-        x = 0
-
-    # Récupération de chaque json independament
-    def jsonIndepElem(self):
-        x = 0
-
-
-
 # ------------------ Suppression Symbols ------------------
 
     # Extract important word
@@ -85,16 +64,13 @@ class ParsingJson:
 
     # Explode String to Char Array
     def traitementWord(self, string):
-        lowerString = string.lower()
-        arrayWord = lowerString.split(' ')
-        return arrayWord
+        return string.lower().split(' ')
 
     # Count number of occurence word
     def countOccurenceWord(self, array):
         arrayCountOccurence = {"word" : 1}
         for key, value in array.items():
-            arrayWord = self.traitementWord(value)
-            for word in arrayWord:
+            for word in self.traitementWord(value):
                 if word in arrayCountOccurence:
                     arrayCountOccurence[word] += 1
                 else:
@@ -115,9 +91,8 @@ class ParsingJson:
 
 # ------------------ First Elems Array ------------------
 
-    def getFirstElemsArray(self, array, stopValue):
+    def getFirstElemsArray(self, array, stopValue, stop = 0):
         arrayFirstElem = {}
-        stop = 0
         for key, value in array.items():
             if not key:
                 stop -= 1
@@ -131,11 +106,14 @@ class ParsingJson:
 
 
 
-# ------------------ Autre ------------------
+# ------------------ Traitement File Sortie ------------------
 
-    # Suppression des prépositions et des mots pas important
-    def traitementRegExp(self):
-        x = 0
+    # Fichier json contenant les résultat
+    def createResultFile(self, name, data):
+        with open('AppTraitement/Result/' + name + '.json', "w") as filout:
+            filout.write(json.dumps(data))
+
+
 
 
 

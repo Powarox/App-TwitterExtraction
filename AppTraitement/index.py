@@ -1,76 +1,133 @@
 from Python.ParsingJson import ParsingJson
 # from Python.ParsingSpacy import ParsingSpacy
 from Python.TraitementJsonFile import TraitementJsonFile
+import time
+
 
 
 # Génération des JsonFile
 traitementJsonFile = TraitementJsonFile()
 
-traitementJsonFile.openFile("AppTraitement/JsonBigFile/us_election20_tweet_pr.json", 1000)
-traitementJsonFile.concatenateJson()
+start = time.time()
+traitementJsonFile.openFile("AppTraitement/JsonBigFile/us_election20_tweet_pr.json", 100000)
+end = time.time()
+val = end - start
+print("Time openJ : " + str(val))
+
+start = time.time()
 traitementJsonFile.writeFile()
+end = time.time()
+val = end - start
+print("Time write : " + str(val))
 
 
 
+
+start = time.time()
 # Instanciation Class ParsingJson
 parsingJson = ParsingJson("AppTraitement/JsonFiles/JsonFile1.json")
 parsingJson.getJsonToArray()
+end = time.time()
+val = end - start
+print("Time loadJ : " + str(val))
 
 
-
-# Séparation Trump / Biden Tweet
+start = time.time()
+# Séparation Trump / Biden Tweet        -->         Traitement ? 2 filesJson sortie ?
 parsingJson.findTrumpOrBiden()
 
 trumpArray = parsingJson.getTrumpArray()
 bidenArray = parsingJson.getBidenArray()
+end = time.time()
+val = end - start
+print("Time SepToB : " + str(val))
 
 
-
+start = time.time()
 # Suppressions symbols
 trumpWithoutSymbols = parsingJson.extractionSymbols(trumpArray)
 bidenWithoutSymbols = parsingJson.extractionSymbols(bidenArray)
+end = time.time()
+val = end - start
+print("Time Symbol : " + str(val))
 
 
-
+# # -------------------- Spacy -------------------- #
+#
+# start = time.time()
 # # Instanciation Class ParsingSpacy
 # parsingSpacy = ParsingSpacy()
-
+# end = time.time()
+# val = end - start
+# print("Time SpaIns : " + str(val))
+#
+# start = time.time()
 # # Extraction StopWord
 # trumpWithoutStopWords = parsingSpacy.extractionStopWords(trumpWithoutSymbols)
 # bidenWithoutStopWords = parsingSpacy.extractionStopWords(bidenWithoutSymbols)
-
+# end = time.time()
+# val = end - start
+# print("Time StopWo : " + str(val))
+#
+# start = time.time()
 # # Count occurence mots Spacy
 # trumpCountOccurence = parsingJson.countOccurenceWord(trumpWithoutStopWords)
 # bidenCountOccurence = parsingJson.countOccurenceWord(bidenWithoutStopWords)
+# end = time.time()
+# val = end - start
+# print("Time OccuSp : " + str(val))
+#
+# # -------------------- Spacy -------------------- #
 
-
-
+start = time.time()
 # Count occurence mots
 trumpCountOccurence = parsingJson.countOccurenceWord(trumpWithoutSymbols)
 bidenCountOccurence = parsingJson.countOccurenceWord(bidenWithoutSymbols)
+end = time.time()
+val = end - start
+print("Time OccurW : " + str(val))
 
 
-
+start = time.time()
 # Trié les array par ordre décroissant
 trumpSortedArray = parsingJson.arraySorted(trumpCountOccurence)
 bidenSortedArray = parsingJson.arraySorted(bidenCountOccurence)
+end = time.time()
+val = end - start
+print("Time Sorted : " + str(val))
 
 
-
+start = time.time()
 # Récupération des 25 premier elements
 trumpBestElems = parsingJson.getFirstElemsArray(trumpSortedArray, 25)
 bidenBestElems = parsingJson.getFirstElemsArray(bidenSortedArray, 25)
+end = time.time()
+val = end - start
+print("Time First  : " + str(val))
 
 
-
+start = time.time()
 # Création file result
 parsingJson.createResultFile("Trump", trumpBestElems)
 parsingJson.createResultFile("Biden", bidenBestElems)
-
+end = time.time()
+val = end - start
+print("Time Result : " + str(val))
 
 
 # Test For InterfaceWeb
 
+# [on_true] if [expression] else [on_false]
+#
+# shift_c = []
+# for lit in ncl:
+#     if lit > 0:
+#         slit = lit + self.__shift_step
+#     else:
+#         slit = lit - self.__shift_step
+# return shift_c
+#
+# return [(lit + self.__shift_step) if lit > 0 else (lit - self.__shift_step) for lit in ncl]
 
 
 # Affichage
