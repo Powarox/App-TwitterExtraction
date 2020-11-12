@@ -12,13 +12,13 @@ start = time.time()
 traitementJsonFile.openFile("AppTraitement/JsonBigFile/us_election20_tweet_pr.json", 100000)
 end = time.time()
 val = end - start
-print("Time openJ : " + str(val))
+print("Time openJs : " + str(val))
 
 start = time.time()
 traitementJsonFile.writeFile()
 end = time.time()
 val = end - start
-print("Time write : " + str(val))
+print("Time writeJ : " + str(val))
 
 
 
@@ -29,7 +29,7 @@ parsingJson = ParsingJson("AppTraitement/JsonFiles/JsonFile1.json")
 parsingJson.getJsonToArray()
 end = time.time()
 val = end - start
-print("Time loadJ : " + str(val))
+print("Time loadJs : " + str(val))
 
 
 start = time.time()
@@ -118,16 +118,7 @@ print("Time Result : " + str(val))
 # Test For InterfaceWeb
 
 # [on_true] if [expression] else [on_false]
-#
-# shift_c = []
-# for lit in ncl:
-#     if lit > 0:
-#         slit = lit + self.__shift_step
-#     else:
-#         slit = lit - self.__shift_step
-# return shift_c
-#
-# return [(lit + self.__shift_step) if lit > 0 else (lit - self.__shift_step) for lit in ncl]
+
 
 
 # Affichage
