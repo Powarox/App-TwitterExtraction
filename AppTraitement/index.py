@@ -69,7 +69,7 @@ print("Time Sorted : " + str(val))
 start = time.time()
 # Récupération des 25 premier elements
 trumpBestElems = parsingJson.getFirstElemsArray(trumpSortedArray, 100)
-bidenBestElems = parsingJson.getFirstElemsArray(bidenSortedArray, 100)
+bidenBestElems = parsingJson.getFirstElemsArray(bidenSortedArray, 500)
 end = time.time()
 val = end - start
 print("Time First  : " + str(val))

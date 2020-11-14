@@ -21,6 +21,8 @@
             </ul>
         </section>
 
+        <?php echo $this->legend; ?>
+
         <?php echo $this->content; ?>
     </main>
 
