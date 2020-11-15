@@ -18,8 +18,7 @@ btnTrump.addEventListener('click', function(e){
     else{
         biden.style.display = "none";
         trump.style.display = "grid";
-        legend.style.display = "inline";
-        trump.style.grid.template.column = "1fr 1fr";
+        legend.style.display = "flex";
     }
 })
 
@@ -31,7 +30,6 @@ btnBiden.addEventListener('click', function(e){
     else{
         trump.style.display = "none";
         biden.style.display = "grid";
-        legend.style.display = "inline";
-        biden.style.grid.template.column = "1fr 1fr";
+        legend.style.display = "flex";
     }
 })

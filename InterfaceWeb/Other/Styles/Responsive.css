@@ -1,0 +1,43 @@
+/* ############ Responsive ############ */
+
+@media (max-width: 1420px) {
+    .trump, .biden {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+    }
+}
+
+@media (max-width: 790px) {
+    main {
+        margin: 0 15px;
+    }
+
+    img {
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*  */

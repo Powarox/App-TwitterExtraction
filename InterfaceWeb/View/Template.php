@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="Other/Styles/styles.css">
+    <link rel="stylesheet" href="Other/Styles/Skin.css">
+    <link rel="stylesheet" href="Other/Styles/Responsive.css">
     <script defer src="Other/Js/script.js"></script>
     <title><?php echo $this->title; ?></title>
 </head>
