@@ -20,7 +20,8 @@ class GenerateImgResult:
     def execute(self):
         self.tagCouldImg()
         self.usFlagTagCloud()
-        self.caricatureTagCloud()
+        self.caricatureTagCloud("1")
+        self.caricatureTagCloud("2")
         self.graphStatHorizontal()
 
 
@@ -36,7 +37,7 @@ class GenerateImgResult:
 # Generate Us Flag Tag Cloud
     def usFlagTagCloud(self):
         # Generate a word cloud image
-        mask = np.array(Image.open("img/us.png"))
+        mask = np.array(Image.open("Ressources/Img/UsFlag.png"))
         usFlag = WordCloud(background_color="white",mode="RGBA", max_words=500,
             relative_scaling=0.1, normalize_plurals=False, mask=mask)
         usFlag.generate_from_frequencies(self.file)
@@ -53,22 +54,27 @@ class GenerateImgResult:
 
 
 # Generate Caricature Tag Cloud
-    def caricatureTagCloud(self):
+    def caricatureTagCloud(self, number):
+        folder = "Ressources/Img/" + self.folder + "Caricature" + number
+
         # Generate a word cloud image
-        mask = np.array(Image.open("img/Trump4.jpg"))
+        mask = np.array(Image.open(folder + ".jpg"))
         usFlag = WordCloud(background_color="white",mode="RGBA", max_words=500,
             relative_scaling=0.1, normalize_plurals=False, mask=mask)
         usFlag.generate_from_frequencies(self.file)
 
         # Create coloring from image
         image_colors = ImageColorGenerator(mask)
-        plt.figure(figsize = (10,6))
+        if self.folder != "Biden/":
+            plt.figure(figsize = (10,6))
+        else:
+            plt.figure(figsize = (6,10))
         plt.imshow(usFlag.recolor(color_func = image_colors),
             interpolation = "bilinear")
         plt.axis("off")
 
         # Save
-        self.matplotlibSave("CaricatureTagCloud5.png")
+        self.matplotlibSave("Caricature" + number + ".png")
 
 
 # Generate Graph
@@ -121,13 +127,13 @@ class GenerateImgResult:
 
 # WordCloud Save
     def wordCloudSave(self, elem, name):
-        WordCloud.to_file(elem, self.folder + name)
+        WordCloud.to_file(elem, "Result/" + self.folder + name)
 
 
 
 # MathplotLib Save
     def matplotlibSave(self, name):
-        plt.savefig(self.folder + name, format = "png")
+        plt.savefig("Result/" + self.folder + name, format = "png")
 
 
 

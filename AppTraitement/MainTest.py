@@ -1,10 +1,9 @@
 import json
-from GenerateImgResult import GenerateImgResult
+from Python.GenerateImgResult import GenerateImgResult
 
 
-with open("Biden500.json") as f:
+with open("Result/Biden/Biden.json") as f:
     biden = json.load(f)
-
 
 
 

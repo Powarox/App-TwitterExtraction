@@ -108,7 +108,8 @@ class ParsingJson:
 
     # Fichier json contenant les résultat
     def createResultFile(self, name, data):
-        with open('AppTraitement/Result/' + name + '.json', "w") as filout:
+        folder = 'AppTraitement/Result/' + name + '/'
+        with open(folder + name + '.json', "w") as filout:
             filout.write(json.dumps(data))
 
 
