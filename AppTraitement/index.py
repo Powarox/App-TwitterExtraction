@@ -1,18 +1,19 @@
+from pathlib import Path
 from Python.ParsingJson import ParsingJson
-from Python.ParsingSpacy import ParsingSpacy
+# from Python.ParsingSpacy import ParsingSpacy
 from Python.TraitementJsonFile import TraitementJsonFile
-from Python.GenerateImgResult import GenerateImgResult
+# from Python.GenerateImgResult import GenerateImgResult
 import time
 
 
-# start = time.time()
-# # Génération des JsonFile
-# traitementJsonFile = TraitementJsonFile()
-# traitementJsonFile.openFile("../AppTraitement/JsonBigFile/us_election20_tweet_pr.json", 50000)
-# traitementJsonFile.writeFile()
-# end = time.time()
-# val = end - start
-# print("Time OpeWri : " + str(val))
+start = time.time()
+# Génération des JsonFile
+traitementJsonFile = TraitementJsonFile()
+traitementJsonFile.openFile(Path("AppTraitement/JsonBigFile/us_election20_tweet_pr.json"), 100000)
+traitementJsonFile.writeFile()
+end = time.time()
+val = end - start
+print("Time OpeWri : " + str(val))
 
 
 # Memory error donc
@@ -23,7 +24,7 @@ import time
 
 start = time.time()
 # Instanciation Class ParsingJson
-parsingJson = ParsingJson("../AppTraitement/JsonFiles/JsonFile1.json")
+parsingJson = ParsingJson(Path("AppTraitement/JsonFiles/JsonFile1.json"))
 parsingJson.getJsonToArray()
 end = time.time()
 val = end - start
@@ -86,16 +87,16 @@ print("Time Result : " + str(val))
 
 
 
-start = time.time()
-# Création des Img grâce aux stats
-generateTrump = GenerateImgResult(trumpBestElems, "Trump/")
-generateBiden = GenerateImgResult(bidenBestElems, "Biden/")
-
-generateTrump.execute()
-generateBiden.execute()
-end = time.time()
-val = end - start
-print("Time GenImg : " + str(val))
+# start = time.time()
+# # Création des Img grâce aux stats
+# generateTrump = GenerateImgResult(trumpBestElems, "Trump/")
+# generateBiden = GenerateImgResult(bidenBestElems, "Biden/")
+#
+# generateTrump.execute()
+# generateBiden.execute()
+# end = time.time()
+# val = end - start
+# print("Time GenImg : " + str(val))
 
 
 

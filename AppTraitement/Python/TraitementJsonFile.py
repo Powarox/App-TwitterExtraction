@@ -1,5 +1,6 @@
 import json
 import re
+from pathlib import Path
 
 class TraitementJsonFile:
     jsonArray = []
@@ -33,6 +34,6 @@ class TraitementJsonFile:
 
 # Write File jsonArrayList
     def writeFile(self):
-        with open("../AppTraitement/JsonFiles/JsonFile1.json", "w") as filout:
+        with open(Path("AppTraitement/JsonFiles/JsonFile1.json"), "w") as filout:
             result = json.dumps(self.jsonArray)
             filout.write(result)

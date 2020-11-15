@@ -1,5 +1,6 @@
 import json     # json_decode
 import re       # preg_match
+from pathlib import Path
 
 class ParsingJson:
     jsonFile = ""
@@ -108,8 +109,8 @@ class ParsingJson:
 
     # Fichier json contenant les résultat
     def createResultFile(self, name, data):
-        folder = '../AppTraitement/Result/' + name + '/'
-        with open(folder + 'AResult.json', "w") as filout:
+        path = Path('AppTraitement/Result/' + name + '/AResult.json')
+        with open(path, "w") as filout:
             filout.write(json.dumps(data))
 
 
