@@ -1,17 +1,18 @@
 from Python.ParsingJson import ParsingJson
-# from Python.ParsingSpacy import ParsingSpacy
+from Python.ParsingSpacy import ParsingSpacy
 from Python.TraitementJsonFile import TraitementJsonFile
+from Python.GenerateImgResult import GenerateImgResult
 import time
 
 
-start = time.time()
-# Génération des JsonFile
-traitementJsonFile = TraitementJsonFile()
-traitementJsonFile.openFile("AppTraitement/JsonBigFile/us_election20_tweet_pr.json", 50000)
-traitementJsonFile.writeFile()
-end = time.time()
-val = end - start
-print("Time OpeWri : " + str(val))
+# start = time.time()
+# # Génération des JsonFile
+# traitementJsonFile = TraitementJsonFile()
+# traitementJsonFile.openFile("../AppTraitement/JsonBigFile/us_election20_tweet_pr.json", 50000)
+# traitementJsonFile.writeFile()
+# end = time.time()
+# val = end - start
+# print("Time OpeWri : " + str(val))
 
 
 # Memory error donc
@@ -22,7 +23,7 @@ print("Time OpeWri : " + str(val))
 
 start = time.time()
 # Instanciation Class ParsingJson
-parsingJson = ParsingJson("AppTraitement/JsonFiles/JsonFile1.json")
+parsingJson = ParsingJson("../AppTraitement/JsonFiles/JsonFile1.json")
 parsingJson.getJsonToArray()
 end = time.time()
 val = end - start
@@ -68,7 +69,7 @@ print("Time Sorted : " + str(val))
 
 start = time.time()
 # Récupération des 25 premier elements
-trumpBestElems = parsingJson.getFirstElemsArray(trumpSortedArray, 100)
+trumpBestElems = parsingJson.getFirstElemsArray(trumpSortedArray, 500)
 bidenBestElems = parsingJson.getFirstElemsArray(bidenSortedArray, 500)
 end = time.time()
 val = end - start
@@ -82,6 +83,21 @@ parsingJson.createResultFile("Biden", bidenBestElems)
 end = time.time()
 val = end - start
 print("Time Result : " + str(val))
+
+
+
+start = time.time()
+# Création des Img grâce aux stats
+generateTrump = GenerateImgResult(trumpBestElems, "Trump/")
+generateBiden = GenerateImgResult(bidenBestElems, "Biden/")
+
+generateTrump.execute()
+generateBiden.execute()
+end = time.time()
+val = end - start
+print("Time GenImg : " + str(val))
+
+
 
 
 # Test For InterfaceWeb

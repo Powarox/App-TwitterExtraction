@@ -6,9 +6,8 @@ with open("Result/Biden/Biden.json") as f:
     biden = json.load(f)
 
 
-
-generate = GenerateImgResult(biden, "Biden/")
-
-
-
-generate.execute()
+# Création des Img grâce aux stats
+generateBiden = GenerateImgResult(biden, "Biden/")
+generateTrump = GenerateImgResult(biden, "Trump/")
+generateBiden.execute()
+generateTrump.execute()
