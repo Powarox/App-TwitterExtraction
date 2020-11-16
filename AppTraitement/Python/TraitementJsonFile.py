@@ -1,5 +1,6 @@
 import json
 import re
+import io
 from pathlib import Path
 
 class TraitementJsonFile:
@@ -11,14 +12,23 @@ class TraitementJsonFile:
 
 
 # Open File And Add To List
-    def openFile(self, file, elem, stop = 0):
+    def openFractionFiles(self, file, elem, stop = 0, countFiles = 0):
         with open(file, "r") as filin:
             ligne = filin.readline()
-            while ligne != "" and stop != elem:
+            while ligne != "":
                 if(self.supprUselessLigne(ligne)):
-                    self.jsonArray.append(ligne)
+                    if stop == elem:
+                        self.writeFractionFiles(countFiles)
+                        self.jsonArray = []
+                        countFiles += 1
+                        stop = 0
+                    else:
+                        self.jsonArray.append(ligne)
+                        stop += 1
                 ligne = filin.readline()
-                stop += 1
+                if(countFiles == 3):
+                    break
+        return countFiles
 
 
 # Check if trump or biden in tweet
@@ -33,7 +43,7 @@ class TraitementJsonFile:
 
 
 # Write File jsonArrayList
-    def writeFile(self):
-        with open(Path("AppTraitement/JsonFiles/JsonFile1.json"), "w") as filout:
+    def writeFractionFiles(self, countFiles):
+        with io.open(Path("AppTraitement/JsonFiles/JsonFile" + str(countFiles) + ".json"), "w") as filout:
             result = json.dumps(self.jsonArray)
             filout.write(result)

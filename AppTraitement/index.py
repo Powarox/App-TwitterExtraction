@@ -3,129 +3,93 @@ from Python.ParsingJson import ParsingJson
 # from Python.ParsingSpacy import ParsingSpacy
 from Python.TraitementJsonFile import TraitementJsonFile
 # from Python.GenerateImgResult import GenerateImgResult
-import time
 
 
-start = time.time()
 # Génération des JsonFile
 traitementJsonFile = TraitementJsonFile()
-traitementJsonFile.openFile(Path("AppTraitement/JsonBigFile/us_election20_tweet_pr.json"), 100000)
-traitementJsonFile.writeFile()
-end = time.time()
-val = end - start
-print("Time OpeWri : " + str(val))
+countFiles = traitementJsonFile.openFractionFiles(
+    Path("AppTraitement/JsonBigFile/us_election20_tweet_pr.json"), 10000)
 
 
-# Memory error donc
-# diviser fichier jsonBigFile en 10 ?
-# effectuer traitement sur chaque fichier et garder les 200 best word ?
-# fusionner les resultat ?
-
-
-start = time.time()
 # Instanciation Class ParsingJson
-parsingJson = ParsingJson(Path("AppTraitement/JsonFiles/JsonFile1.json"))
-parsingJson.getJsonToArray()
-end = time.time()
-val = end - start
-print("Time loadJs : " + str(val))
+parsingJson = ParsingJson()
 
 
-start = time.time()
-# Séparation Trump / Biden Tweet        -->         Traitement ? 2 filesJson sortie ?
-parsingJson.findTrumpOrBiden()
-trumpArray = parsingJson.getTrumpArray()
-bidenArray = parsingJson.getBidenArray()
-end = time.time()
-val = end - start
-print("Time SepToB : " + str(val))
+for count in range(countFiles):
+    # Init Class ParsingJson
+    parsingJson.setJsonFile(Path("AppTraitement/JsonFiles/JsonFile" + str(count) +".json"))
+
+    # Transform Json to Array
+    parsingJson.transformJsonToArray()
+
+    # Séparation Trump / Biden Tweet
+    trumpArray, bidenArray = parsingJson.findTrumpOrBiden()
+
+    # Suppressions symbols
+    trumpWithoutSymbols = parsingJson.extractionSymbols(trumpArray)
+    bidenWithoutSymbols = parsingJson.extractionSymbols(bidenArray)
+
+    # Count occurence mots
+    trumpCountOccu = parsingJson.countOccurenceWord(trumpWithoutSymbols)
+    bidenCountOccu = parsingJson.countOccurenceWord(bidenWithoutSymbols)
+
+    # Trié les array par ordre décroissant
+    trumpSortedArray = parsingJson.arraySorted(trumpCountOccu)
+    bidenSortedArray = parsingJson.arraySorted(bidenCountOccu)
+
+    # Récupération des premier elements
+    trumpBestElems = parsingJson.getFirstElemsArray(trumpSortedArray, 50)
+    bidenBestElems = parsingJson.getFirstElemsArray(bidenSortedArray, 50)
+
+    # Tmp Result Files
+    parsingJson.createTmpResultFile("Trump", trumpBestElems, count)
+    parsingJson.createTmpResultFile("Biden", bidenBestElems, count)
+
+    # Fusion with globalCountOccu
+    parsingJson.globalCountOccuWord("Trump", trumpCountOccu)
+    parsingJson.globalCountOccuWord("Biden", bidenCountOccu)
+
+    # CLear Local Var
+    trumpArray.clear()
+    bidenArray.clear()
+
+    trumpWithoutSymbols.clear()
+    bidenWithoutSymbols.clear()
+
+    trumpCountOccu.clear()
+    bidenCountOccu.clear()
+
+    trumpSortedArray.clear()
+    bidenSortedArray.clear()
+
+    trumpBestElems.clear()
+    bidenBestElems.clear()
 
 
-start = time.time()
-# Suppressions symbols
-trumpWithoutSymbols = parsingJson.extractionSymbols(trumpArray)
-bidenWithoutSymbols = parsingJson.extractionSymbols(bidenArray)
-end = time.time()
-val = end - start
-print("Time Symbol : " + str(val))
 
 
-start = time.time()
-# Count occurence mots
-trumpCountOccurence = parsingJson.countOccurenceWord(trumpWithoutSymbols)
-bidenCountOccurence = parsingJson.countOccurenceWord(bidenWithoutSymbols)
-end = time.time()
-val = end - start
-print("Time OccurW : " + str(val))
+# Récupération des array avec tous les mots et leurs occurences
+globalTrumpCountOccu = parsingJson.getGlobalTrumpCountOccu()
+globalBidenCountOccu = parsingJson.getGlobalBidenCountOccu()
 
-
-start = time.time()
 # Trié les array par ordre décroissant
-trumpSortedArray = parsingJson.arraySorted(trumpCountOccurence)
-bidenSortedArray = parsingJson.arraySorted(bidenCountOccurence)
-end = time.time()
-val = end - start
-print("Time Sorted : " + str(val))
+globalTrumpSortedArray = parsingJson.arraySorted(globalTrumpCountOccu)
+globalBidenSortedArray = parsingJson.arraySorted(globalBidenCountOccu)
 
+# Récupération des premier elements
+globalTrumpBestElems = parsingJson.getFirstElemsArray(globalTrumpSortedArray, 50)
+globalBidenBestElems = parsingJson.getFirstElemsArray(globalBidenSortedArray, 50)
 
-start = time.time()
-# Récupération des 25 premier elements
-trumpBestElems = parsingJson.getFirstElemsArray(trumpSortedArray, 500)
-bidenBestElems = parsingJson.getFirstElemsArray(bidenSortedArray, 500)
-end = time.time()
-val = end - start
-print("Time First  : " + str(val))
-
-
-start = time.time()
 # Création file result
-parsingJson.createResultFile("Trump", trumpBestElems)
-parsingJson.createResultFile("Biden", bidenBestElems)
-end = time.time()
-val = end - start
-print("Time Result : " + str(val))
+parsingJson.createFinalResultFile("Trump", globalTrumpBestElems)
+parsingJson.createFinalResultFile("Biden", globalBidenBestElems)
 
 
 
-# start = time.time()
+
 # # Création des Img grâce aux stats
 # generateTrump = GenerateImgResult(trumpBestElems, "Trump/")
 # generateBiden = GenerateImgResult(bidenBestElems, "Biden/")
 #
 # generateTrump.execute()
 # generateBiden.execute()
-# end = time.time()
-# val = end - start
-# print("Time GenImg : " + str(val))
-
-
-
-
-# Test For InterfaceWeb
-
-# # -------------------- Spacy -------------------- #
-#
-# start = time.time()
-# # Instanciation Class ParsingSpacy
-# parsingSpacy = ParsingSpacy()
-# end = time.time()
-# val = end - start
-# print("Time SpaIns : " + str(val))
-#
-# start = time.time()
-# # Extraction StopWord
-# trumpWithoutStopWords = parsingSpacy.extractionStopWords(trumpWithoutSymbols)
-# bidenWithoutStopWords = parsingSpacy.extractionStopWords(bidenWithoutSymbols)
-# end = time.time()
-# val = end - start
-# print("Time StopWo : " + str(val))
-#
-# start = time.time()
-# # Count occurence mots Spacy
-# trumpCountOccurence = parsingJson.countOccurenceWord(trumpWithoutStopWords)
-# bidenCountOccurence = parsingJson.countOccurenceWord(bidenWithoutStopWords)
-# end = time.time()
-# val = end - start
-# print("Time OccuSp : " + str(val))
-#
-# # -------------------- Spacy -------------------- #
