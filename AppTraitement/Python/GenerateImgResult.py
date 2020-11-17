@@ -8,7 +8,6 @@ class GenerateImgResult:
     file = {}
     folder = ""
 
-
 # Constructor
     def __init__(self, file, folder):
         self.file = file
@@ -84,7 +83,6 @@ class GenerateImgResult:
 
         # Figure Size
         fig, ax = plt.subplots(figsize = (16, 9))
-
         # Horizontal Bar Plot
         ax.barh(word[:30], occu[:30])
 
@@ -95,7 +93,6 @@ class GenerateImgResult:
         # Remove x, y Ticks
         ax.xaxis.set_ticks_position('none')
         ax.yaxis.set_ticks_position('none')
-
         # Add padding between axes and labels
         ax.xaxis.set_tick_params(pad = 5)
         ax.yaxis.set_tick_params(pad = 10)
@@ -129,20 +126,6 @@ class GenerateImgResult:
         WordCloud.to_file(elem, "Result/" + self.folder + name)
 
 
-
 # MathplotLib Save
     def matplotlibSave(self, name):
         plt.savefig("Result/" + self.folder + name, format = "png")
-
-
-
-
-
-
-
-
-
-
-
-
-#

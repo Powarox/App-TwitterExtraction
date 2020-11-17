@@ -52,6 +52,35 @@ print("Time OccuSp : " + str(val))
 # -------------------- Spacy -------------------- #
 
 
+# Trié les array par ordre décroissant
+trumpSortedArray = parsingJson.arraySorted(trumpCountOccu)
+bidenSortedArray = parsingJson.arraySorted(bidenCountOccu)
+
+# Récupération des premier elements
+trumpBestElems = parsingJson.getFirstElemsArray(trumpSortedArray, 50)
+bidenBestElems = parsingJson.getFirstElemsArray(bidenSortedArray, 50)
+
+# Tmp Result Files
+parsingJson.createTmpResultFile("Trump", trumpBestElems, count)
+parsingJson.createTmpResultFile("Biden", bidenBestElems, count)
+
+trumpSortedArray.clear()
+bidenSortedArray.clear()
+
+trumpBestElems.clear()
+bidenBestElems.clear()
+
+# ------------------ Traitement Tmp Result Files ------------------
+    # Création Fichier json contenant les résultat
+    def createTmpResultFile(self, name, data, numberFile):
+        path = Path('AppTraitement/Tmp/' + name + '/Result' + str(numberFile) + '.json')
+        with open(path, "w") as filout:
+            filout.write(json.dumps(data))
+
+
+
+
+
 
     def arrayBanWords(self):
         arrayBanWords = (

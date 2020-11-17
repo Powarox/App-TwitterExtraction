@@ -17,7 +17,7 @@ class View{
 
     // Méthode pour Page d'Acceuil
     public function makeHomePage($trumpJsonArray, $bidenJsonArray){
-        $this->title = "American Election 2020";
+        $this->title = "American Election 2020";    # Temporal Twitter Summarizer
 
         $this->legend = "<h2>US election statistics on twitter 2020</h2>";
 

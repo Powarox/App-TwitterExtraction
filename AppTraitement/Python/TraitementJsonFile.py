@@ -1,6 +1,5 @@
 import json
 import re
-import io
 from pathlib import Path
 
 class TraitementJsonFile:
@@ -19,7 +18,7 @@ class TraitementJsonFile:
                 if(self.supprUselessLigne(ligne)):
                     if stop == elem:
                         self.writeFractionFiles(countFiles)
-                        self.jsonArray = []
+                        self.jsonArray.clear()
                         countFiles += 1
                         stop = 0
                     else:
@@ -44,6 +43,6 @@ class TraitementJsonFile:
 
 # Write File jsonArrayList
     def writeFractionFiles(self, countFiles):
-        with io.open(Path("AppTraitement/JsonFiles/JsonFile" + str(countFiles) + ".json"), "w") as filout:
+        with open(Path("AppTraitement/JsonFiles/JsonFile" + str(countFiles) + ".json"), "w") as filout:
             result = json.dumps(self.jsonArray)
             filout.write(result)

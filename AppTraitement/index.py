@@ -1,21 +1,27 @@
 from pathlib import Path
 from Python.ParsingJson import ParsingJson
-# from Python.ParsingSpacy import ParsingSpacy
 from Python.TraitementJsonFile import TraitementJsonFile
 # from Python.GenerateImgResult import GenerateImgResult
+import time
 
-
+start = time.time()
 # Génération des JsonFile
 traitementJsonFile = TraitementJsonFile()
 countFiles = traitementJsonFile.openFractionFiles(
-    Path("AppTraitement/JsonBigFile/us_election20_tweet_pr.json"), 10000)
+    Path("AppTraitement/JsonBigFile/us_election20_tweet_pr.json"), 33000)
+end = time.time()
+val = end - start
+print("Time OpenWrit : " + str(val))
+
 
 
 # Instanciation Class ParsingJson
 parsingJson = ParsingJson()
 
-
+# Loop Traitement on number file
 for count in range(countFiles):
+    start = time.time()
+
     # Init Class ParsingJson
     parsingJson.setJsonFile(Path("AppTraitement/JsonFiles/JsonFile" + str(count) +".json"))
 
@@ -33,18 +39,6 @@ for count in range(countFiles):
     trumpCountOccu = parsingJson.countOccurenceWord(trumpWithoutSymbols)
     bidenCountOccu = parsingJson.countOccurenceWord(bidenWithoutSymbols)
 
-    # Trié les array par ordre décroissant
-    trumpSortedArray = parsingJson.arraySorted(trumpCountOccu)
-    bidenSortedArray = parsingJson.arraySorted(bidenCountOccu)
-
-    # Récupération des premier elements
-    trumpBestElems = parsingJson.getFirstElemsArray(trumpSortedArray, 50)
-    bidenBestElems = parsingJson.getFirstElemsArray(bidenSortedArray, 50)
-
-    # Tmp Result Files
-    parsingJson.createTmpResultFile("Trump", trumpBestElems, count)
-    parsingJson.createTmpResultFile("Biden", bidenBestElems, count)
-
     # Fusion with globalCountOccu
     parsingJson.globalCountOccuWord("Trump", trumpCountOccu)
     parsingJson.globalCountOccuWord("Biden", bidenCountOccu)
@@ -59,12 +53,9 @@ for count in range(countFiles):
     trumpCountOccu.clear()
     bidenCountOccu.clear()
 
-    trumpSortedArray.clear()
-    bidenSortedArray.clear()
-
-    trumpBestElems.clear()
-    bidenBestElems.clear()
-
+    end = time.time()
+    val = end - start
+    print("Time BouclFor : " + str(val))
 
 
 
@@ -83,7 +74,6 @@ globalBidenBestElems = parsingJson.getFirstElemsArray(globalBidenSortedArray, 50
 # Création file result
 parsingJson.createFinalResultFile("Trump", globalTrumpBestElems)
 parsingJson.createFinalResultFile("Biden", globalBidenBestElems)
-
 
 
 
