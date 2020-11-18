@@ -26,7 +26,7 @@ class GenerateImgResult:
 # Generate Tag Cloud
     def tagCouldImg(self):
         tagCloud = WordCloud(background_color="white", width=700, height=500,
-            max_words=100, relative_scaling=0.5, normalize_plurals=False)
+            max_words=300, relative_scaling=0.5, normalize_plurals=False)
         tagCloud.generate_from_frequencies(self.file)
         plt.imshow(tagCloud)
         self.wordCloudSave(tagCloud, "ClassicTagCloud.png")
@@ -36,7 +36,7 @@ class GenerateImgResult:
     def usFlagTagCloud(self):
         # Generate a word cloud image
         mask = np.array(Image.open("../AppTraitement/Ressources/Img/UsFlag.png"))
-        usFlag = WordCloud(background_color="white",mode="RGBA", max_words=500,
+        usFlag = WordCloud(background_color="white",mode="RGBA", max_words=1000,
             relative_scaling=0.1, normalize_plurals=False, mask=mask)
         usFlag.generate_from_frequencies(self.file)
 
@@ -57,7 +57,7 @@ class GenerateImgResult:
 
         # Generate a word cloud image
         mask = np.array(Image.open(folder + ".jpg"))
-        usFlag = WordCloud(background_color="white",mode="RGBA", max_words=500,
+        usFlag = WordCloud(background_color="white",mode="RGBA", max_words=1000,
             relative_scaling=0.1, normalize_plurals=False, mask=mask)
         usFlag.generate_from_frequencies(self.file)
 
