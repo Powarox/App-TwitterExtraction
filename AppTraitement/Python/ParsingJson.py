@@ -25,6 +25,10 @@ class ParsingJson:
     def getGlobalBidenCountOccu(self):
         return self.globalBidenCountOccu
 
+# Clear Var
+    def clearVar(self):
+        self.jsonArray.clear()
+
 
 # ------------------ Traitement File Entrée ------------------
     # Récupère le json et le transforme en tableau
@@ -37,7 +41,9 @@ class ParsingJson:
 
 # ------------------ Séparation Trump / Biden ------------------
     # Find si tweet talk about T or B
-    def findTrumpOrBiden(self, trumpTweetArray = {}, bidenTweetArray = {}):
+    def findTrumpOrBiden(self):
+        trumpTweetArray = {}
+        bidenTweetArray = {}
         patternBiden = r"@?(joe)?(\s)?biden | @?biden(\s)?(joe)?"
         patternTrump = r"@?(donald)?(\s)?trump | @?trump(\s)?(donald)?"
         for key, value in self.jsonArray.items():
@@ -114,7 +120,7 @@ class ParsingJson:
 # ------------------ Traitement File Sortie ------------------
     # Création Fichier json contenant les résultat
     def createFinalResultFile(self, name, data):
-        path = Path('AppTraitement/Result/' + name + '/AResult.json')
+        path = Path('../AppTraitement/Result/' + name + '/AResult.json')
         with open(path, "w") as filout:
             filout.write(json.dumps(data))
 

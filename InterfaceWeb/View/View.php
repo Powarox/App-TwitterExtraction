@@ -22,12 +22,9 @@ class View{
         $this->legend = "<h2>US election statistics on twitter 2020</h2>";
 
         $this->content = '<section class="trump">';
-            $this->content .= '<article>';
-                $this->content .= '<ul>';
-                foreach($trumpJsonArray as $key => $value){
-                    $this->content .= '<li>'. $key . ' : ' . $value . '</li>';
-                }
-                $this->content .= '<ul>';
+            $this->content .= '<article class="description">';
+                $this->content .= '<h3>Candidat : Donald Trump</h3>';
+                $this->content .= '<p>Analysis of relevant tweets about : Donald Trump</p>';
             $this->content .= '</article>';
 
             $this->content .= '<article class="zoom">';
@@ -53,12 +50,9 @@ class View{
 
 
         $this->content .= '<section class="biden">';
-            $this->content .= '<article>';
-                $this->content .= '<ul>';
-                foreach($bidenJsonArray as $key => $value){
-                    $this->content .= '<li>'. $key . ' : ' . $value . '</li>';
-                }
-                $this->content .= '<ul>';
+            $this->content .= '<article class="description">';
+                $this->content .= '<h3>Candidat : Joe Biden</h3>';
+                $this->content .= '<p>Analysis of relevant tweets about : Joe Biden</p>';
             $this->content .= '</article>';
 
             $this->content .= '<article class="zoom">';

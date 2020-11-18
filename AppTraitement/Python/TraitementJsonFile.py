@@ -25,8 +25,6 @@ class TraitementJsonFile:
                         self.jsonArray.append(ligne)
                         stop += 1
                 ligne = filin.readline()
-                if(countFiles == 3):
-                    break
         return countFiles
 
 
@@ -43,6 +41,6 @@ class TraitementJsonFile:
 
 # Write File jsonArrayList
     def writeFractionFiles(self, countFiles):
-        with open(Path("AppTraitement/JsonFiles/JsonFile" + str(countFiles) + ".json"), "w") as filout:
+        with open(Path("../AppTraitement/JsonFiles/JsonFile" + str(countFiles) + ".json"), "w") as filout:
             result = json.dumps(self.jsonArray)
             filout.write(result)

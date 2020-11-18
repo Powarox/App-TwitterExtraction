@@ -35,7 +35,7 @@ class GenerateImgResult:
 # Generate Us Flag Tag Cloud
     def usFlagTagCloud(self):
         # Generate a word cloud image
-        mask = np.array(Image.open("Ressources/Img/UsFlag.png"))
+        mask = np.array(Image.open("../AppTraitement/Ressources/Img/UsFlag.png"))
         usFlag = WordCloud(background_color="white",mode="RGBA", max_words=500,
             relative_scaling=0.1, normalize_plurals=False, mask=mask)
         usFlag.generate_from_frequencies(self.file)
@@ -53,7 +53,7 @@ class GenerateImgResult:
 
 # Generate Caricature Tag Cloud
     def caricatureTagCloud(self, number):
-        folder = "Ressources/Img/" + self.folder + "Caricature" + number
+        folder = "../AppTraitement/Ressources/Img/" + self.folder + "Caricature" + number
 
         # Generate a word cloud image
         mask = np.array(Image.open(folder + ".jpg"))
@@ -123,9 +123,9 @@ class GenerateImgResult:
 
 # WordCloud Save
     def wordCloudSave(self, elem, name):
-        WordCloud.to_file(elem, "Result/" + self.folder + name)
+        WordCloud.to_file(elem, "../AppTraitement/Result/" + self.folder + name)
 
 
 # MathplotLib Save
     def matplotlibSave(self, name):
-        plt.savefig("Result/" + self.folder + name, format = "png")
+        plt.savefig("../AppTraitement/Result/" + self.folder + name, format = "png")

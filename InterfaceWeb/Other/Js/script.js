@@ -1,6 +1,5 @@
 "use strict";
 
-
 let btnTrump = document.getElementById("btnTrump");
 let btnBiden = document.getElementById("btnBiden");
 

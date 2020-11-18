@@ -11,7 +11,8 @@ For AppTraitement :
     - In JsonBigFile To lunch index.py
 
 For InterfaceWeb :
-    - No need
+    - No require
+
 
 <--------  Specification To Work :  -------->
 
@@ -24,6 +25,5 @@ AppTraitement :
             - WordCloud
             - matplotlib
 
-
-
 InterfaceWeb :
+    - No specification
