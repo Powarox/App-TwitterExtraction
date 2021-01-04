@@ -4,6 +4,7 @@ from Python.TraitementJsonFile import TraitementJsonFile
 from Python.GenerateImgResult import GenerateImgResult
 
 
+
 # Génération des JsonFile
 traitementJsonFile = TraitementJsonFile()
 countFiles = traitementJsonFile.openFractionFiles(
